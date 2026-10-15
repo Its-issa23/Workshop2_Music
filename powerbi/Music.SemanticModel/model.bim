@@ -1,0 +1,192 @@
+{
+  "name": "Music",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "es-ES",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Cobertura",
+        "columns": [
+          {
+            "name": "category_name",
+            "dataType": "string",
+            "sourceColumn": "category_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "eligible_records",
+            "dataType": "int64",
+            "sourceColumn": "eligible_records",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "matched_records",
+            "dataType": "int64",
+            "sourceColumn": "matched_records",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "coverage_pct",
+            "dataType": "double",
+            "sourceColumn": "coverage_pct",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Cobertura",
+            "expression": "DIVIDE(SUM(Cobertura[matched_records]), SUM(Cobertura[eligible_records]))",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Elegibles",
+            "expression": "SUM(Cobertura[eligible_records])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Vinculados",
+            "expression": "SUM(Cobertura[matched_records])",
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Cobertura",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    View = Source{[Schema=\"dw\", Item=\"kpi_coverage\"]}[Data]",
+                "in",
+                "    View"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Popularidad",
+        "columns": [
+          {
+            "name": "category_name",
+            "dataType": "string",
+            "sourceColumn": "category_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "distinct_tracks",
+            "dataType": "int64",
+            "sourceColumn": "distinct_tracks",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "mean_popularity",
+            "dataType": "double",
+            "sourceColumn": "mean_popularity",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Popularidad media",
+            "expression": "SELECTEDVALUE(Popularidad[mean_popularity])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Canciones por categoria",
+            "expression": "SELECTEDVALUE(Popularidad[distinct_tracks])",
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Popularidad",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    View = Source{[Schema=\"dw\", Item=\"kpi_popularity\"]}[Data]",
+                "in",
+                "    View"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Audio",
+        "columns": [
+          {
+            "name": "decade",
+            "dataType": "int64",
+            "sourceColumn": "decade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "distinct_tracks",
+            "dataType": "int64",
+            "sourceColumn": "distinct_tracks",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "mean_energy",
+            "dataType": "double",
+            "sourceColumn": "mean_energy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "mean_danceability",
+            "dataType": "double",
+            "sourceColumn": "mean_danceability",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Energia media",
+            "expression": "SELECTEDVALUE(Audio[mean_energy])",
+            "formatString": "0.0000"
+          },
+          {
+            "name": "Bailabilidad media",
+            "expression": "SELECTEDVALUE(Audio[mean_danceability])",
+            "formatString": "0.0000"
+          },
+          {
+            "name": "Canciones por decada",
+            "expression": "SELECTEDVALUE(Audio[distinct_tracks])",
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Audio",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    View = Source{[Schema=\"dw\", Item=\"kpi_audio\"]}[Data]",
+                "in",
+                "    View"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Cobertura\", \"Popularidad\", \"Audio\"]"
+      }
+    ]
+  }
+}

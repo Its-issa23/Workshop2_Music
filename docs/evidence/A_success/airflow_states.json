@@ -1,0 +1,66 @@
+{
+  "dag_run": {
+    "run_id": "evidence_A_success_20261015T213022",
+    "state": "success",
+    "start_date": "2026-10-15 21:30:25.016537+00:00",
+    "end_date": "2026-10-15 21:30:58.301830+00:00"
+  },
+  "tasks": [
+    {
+      "task_id": "extract_grammys",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 2,
+      "start_date": "2026-10-15 21:30:25.150803+00:00",
+      "end_date": "2026-10-15 21:30:32.273818+00:00"
+    },
+    {
+      "task_id": "extract_spotify",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 0,
+      "start_date": "2026-10-15 21:30:25.150151+00:00",
+      "end_date": "2026-10-15 21:30:32.914456+00:00"
+    },
+    {
+      "task_id": "load_dw",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 2,
+      "start_date": "2026-10-15 21:30:52.438985+00:00",
+      "end_date": "2026-10-15 21:30:57.389949+00:00"
+    },
+    {
+      "task_id": "transform_and_integrate",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 0,
+      "start_date": "2026-10-15 21:30:40.313604+00:00",
+      "end_date": "2026-10-15 21:30:47.217108+00:00"
+    },
+    {
+      "task_id": "validate_grammys_raw",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 0,
+      "start_date": "2026-10-15 21:30:33.385983+00:00",
+      "end_date": "2026-10-15 21:30:38.477358+00:00"
+    },
+    {
+      "task_id": "validate_prepared",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 0,
+      "start_date": "2026-10-15 21:30:47.589059+00:00",
+      "end_date": "2026-10-15 21:30:52.097243+00:00"
+    },
+    {
+      "task_id": "validate_spotify_raw",
+      "state": "success",
+      "try_number": 1,
+      "max_tries": 0,
+      "start_date": "2026-10-15 21:30:33.387112+00:00",
+      "end_date": "2026-10-15 21:30:39.259965+00:00"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "header2",
+  "position": {
+    "x": 35,
+    "y": 20,
+    "z": 0,
+    "height": 110,
+    "width": 1210,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Popularidad de las canciones vinculadas",
+                    "textStyle": {
+                      "fontSize": "25pt",
+                      "fontWeight": "bold",
+                      "color": "#143B48"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "AR2 · Media por canción Spotify distinta dentro de cada categoría. La puntuación corresponde a la instantánea Spotify, no al año del premio.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#42606B"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

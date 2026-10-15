@@ -1,0 +1,7 @@
+{
+  "database": "grammy_source",
+  "table": "source.grammy_awards",
+  "query": "SELECT * FROM source.grammy_awards ORDER BY source_row_id",
+  "rows": 4810,
+  "sha256": "51d363a35d4c204e816009d1fa7c964fc10705dc1c11f67556f12d7597f2fb3d"
+}

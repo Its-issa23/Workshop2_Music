@@ -1,0 +1,14 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+logs/
+data/
+sources/
+!sources/.gitkeep
+.ipynb_checkpoints/
+**/.pbi/
+*.pbix
+deliverables/
+docs/powerbi_schemas/

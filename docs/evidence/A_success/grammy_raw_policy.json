@@ -1,0 +1,251 @@
+{
+  "layer": "grammy_raw",
+  "artifact_sha256": "51d363a35d4c204e816009d1fa7c964fc10705dc1c11f67556f12d7597f2fb3d",
+  "gx_success": false,
+  "policy_accepted": true,
+  "critical_failures": [],
+  "engine_errors": [],
+  "rules": [
+    {
+      "rule_id": "grammy_raw-COUNT",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_table_row_count_to_be_between",
+      "result": {
+        "observed_value": 4810
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G01",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_table_columns_to_match_set",
+      "result": {
+        "observed_value": [
+          "artist",
+          "category",
+          "img",
+          "nominee",
+          "published_at",
+          "source_row_id",
+          "title",
+          "updated_at",
+          "winner",
+          "workers",
+          "year"
+        ],
+        "details": {
+          "mismatched": {
+            "unexpected": [
+              "img",
+              "published_at",
+              "title",
+              "updated_at",
+              "workers"
+            ]
+          }
+        }
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G02",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_be_unique",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G03-source_row_id",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_not_be_null",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G03-year",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_not_be_null",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G04",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_match_regex",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G03-category",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_not_be_null",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G05",
+      "severity": "Critical",
+      "success": true,
+      "expectation": "expect_column_values_to_not_match_regex",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G06",
+      "severity": "Warning",
+      "success": false,
+      "expectation": "expect_column_values_to_not_match_regex",
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 1840,
+        "unexpected_percent": 38.25363825363826,
+        "partial_unexpected_list": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 38.25363825363826,
+        "unexpected_percent_nonmissing": 38.25363825363826,
+        "partial_unexpected_counts": [
+          {
+            "value": "",
+            "count": 10
+          }
+        ],
+        "partial_unexpected_index_list": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ]
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "rule_id": "G07",
+      "severity": "Warning",
+      "success": false,
+      "expectation": "expect_column_unique_value_count_to_be_between",
+      "result": {
+        "observed_value": 1
+      },
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    }
+  ]
+}

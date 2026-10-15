@@ -1,0 +1,13 @@
+{
+  "rows": 4810,
+  "business_sha256": "d192992ba707e01ea2c13c27039dab0cf66b25533961f8c75caf789aed66dcdb",
+  "measures": [
+    {
+      "rows": 4810,
+      "matches": 33,
+      "popularity_sum": 2340.0,
+      "energy_sum": 18.874000000000002,
+      "danceability_sum": 19.674
+    }
+  ]
+}

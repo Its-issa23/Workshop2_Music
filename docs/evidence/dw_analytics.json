@@ -1,0 +1,121 @@
+{
+  "kpi_coverage": [
+    {
+      "category_name": "Best Female Pop Vocal Performance",
+      "eligible_records": 17,
+      "matched_records": 3,
+      "coverage_pct": "17.65"
+    },
+    {
+      "category_name": "Best Male Pop Vocal Performance",
+      "eligible_records": 17,
+      "matched_records": 8,
+      "coverage_pct": "47.06"
+    },
+    {
+      "category_name": "Best Pop Solo Performance",
+      "eligible_records": 13,
+      "matched_records": 3,
+      "coverage_pct": "23.08"
+    },
+    {
+      "category_name": "Best Rap Solo Performance",
+      "eligible_records": 19,
+      "matched_records": 4,
+      "coverage_pct": "21.05"
+    },
+    {
+      "category_name": "Best R&B Performance",
+      "eligible_records": 13,
+      "matched_records": 1,
+      "coverage_pct": "7.69"
+    },
+    {
+      "category_name": "Best Rock Performance",
+      "eligible_records": 13,
+      "matched_records": 5,
+      "coverage_pct": "38.46"
+    },
+    {
+      "category_name": "Record Of The Year",
+      "eligible_records": 69,
+      "matched_records": 9,
+      "coverage_pct": "13.04"
+    }
+  ],
+  "kpi_popularity": [
+    {
+      "category_name": "Best Female Pop Vocal Performance",
+      "distinct_tracks": 3,
+      "mean_popularity": "68.33"
+    },
+    {
+      "category_name": "Best Male Pop Vocal Performance",
+      "distinct_tracks": 8,
+      "mean_popularity": "68.75"
+    },
+    {
+      "category_name": "Best Pop Solo Performance",
+      "distinct_tracks": 3,
+      "mean_popularity": "83.67"
+    },
+    {
+      "category_name": "Best Rap Solo Performance",
+      "distinct_tracks": 4,
+      "mean_popularity": "80.25"
+    },
+    {
+      "category_name": "Best R&B Performance",
+      "distinct_tracks": 1,
+      "mean_popularity": "83.00"
+    },
+    {
+      "category_name": "Best Rock Performance",
+      "distinct_tracks": 5,
+      "mean_popularity": "68.60"
+    },
+    {
+      "category_name": "Record Of The Year",
+      "distinct_tracks": 9,
+      "mean_popularity": "65.22"
+    }
+  ],
+  "kpi_audio": [
+    {
+      "decade": 1950,
+      "distinct_tracks": 1,
+      "mean_energy": "0.5290",
+      "mean_danceability": "0.5490"
+    },
+    {
+      "decade": 1970,
+      "distinct_tracks": 2,
+      "mean_energy": "0.5030",
+      "mean_danceability": "0.5610"
+    },
+    {
+      "decade": 1980,
+      "distinct_tracks": 1,
+      "mean_energy": "0.3820",
+      "mean_danceability": "0.4690"
+    },
+    {
+      "decade": 1990,
+      "distinct_tracks": 6,
+      "mean_energy": "0.4390",
+      "mean_danceability": "0.5472"
+    },
+    {
+      "decade": 2000,
+      "distinct_tracks": 9,
+      "mean_energy": "0.5972",
+      "mean_danceability": "0.6182"
+    },
+    {
+      "decade": 2010,
+      "distinct_tracks": 12,
+      "mean_energy": "0.6748",
+      "mean_danceability": "0.6104"
+    }
+  ]
+}

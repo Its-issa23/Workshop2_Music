@@ -1,0 +1,59 @@
+name: workshop2-music
+x-pipeline: &pipeline
+  build: .
+  image: workshop2-music:local
+  env_file: .env
+  environment: &environment
+    POSTGRES_USER: ${POSTGRES_USER}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    PGHOST: postgres
+    PROJECT_ROOT: /opt/airflow
+    PYTHONPATH: /opt/airflow
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: admin:admin
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+    AIRFLOW__API__BASE_URL: http://localhost:8080
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://localhost:8080/execution/
+    AIRFLOW__LOGGING__LOGGING_LEVEL: INFO
+  volumes:
+    - ./dags:/opt/airflow/dags:ro
+    - ./src:/opt/airflow/src:ro
+    - ./sql:/opt/airflow/sql:ro
+    - ./scripts:/opt/airflow/scripts:ro
+    - ./tests:/opt/airflow/tests:ro
+    - ./notebooks:/opt/airflow/notebooks
+    - ./powerbi:/opt/airflow/powerbi
+    - ./sources:/opt/airflow/sources:ro
+    - ./docs:/opt/airflow/docs
+    - ./data:/opt/airflow/data
+    - ./logs:/opt/airflow/logs
+  depends_on:
+    postgres:
+      condition: service_healthy
+services:
+  postgres:
+    image: postgres:16.8
+    env_file: .env
+    ports:
+      - '127.0.0.1:5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/00_databases.sql:/docker-entrypoint-initdb.d/00_databases.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d postgres']
+      interval: 5s
+      retries: 20
+  bootstrap:
+    <<: *pipeline
+    command: python -m src.bootstrap
+    profiles: ['setup']
+  airflow:
+    <<: *pipeline
+    command: standalone
+    ports:
+      - '127.0.0.1:8080:8080'
+    restart: unless-stopped
+volumes:
+  pgdata:

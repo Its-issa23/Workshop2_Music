@@ -1,0 +1,7 @@
+{
+  "run_id": "evidence_A_success_20261015T213022",
+  "fact_rows": 4810,
+  "matched_rows": 33,
+  "prepared_sha256": "5574233260523e61e6663650d49ffe192b5946ed927c64c13d3cb01a34145c4e",
+  "strategy": "atomic snapshot replacement"
+}

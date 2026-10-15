@@ -1,0 +1,17 @@
+{
+  "spotify_raw_rows": 114000,
+  "spotify_unique_ids": 89741,
+  "conflicting_track_ids": 720,
+  "quarantined_spotify_rows": 1933,
+  "spotify_canonical_tracks": 89020,
+  "grammy_raw_rows": 4810,
+  "prepared_rows": 4810,
+  "status_counts": {
+    "out_of_scope": 4649,
+    "unmatched": 115,
+    "matched": 33,
+    "ambiguous": 13
+  },
+  "eligible_records": 161,
+  "matched_records": 33
+}

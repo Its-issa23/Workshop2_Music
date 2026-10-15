@@ -1,0 +1,192 @@
+{
+  "name": "grammy_raw_suite",
+  "id": "077bbd6a-5956-486b-b44a-ddff7e0612c4",
+  "expectations": [
+    {
+      "type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": 1
+      },
+      "meta": {
+        "rule_id": "grammy_raw-COUNT",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "eb242835-1b1a-4574-88ca-c140cce620b2",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_table_columns_to_match_set",
+      "kwargs": {
+        "column_set": [
+          "source_row_id",
+          "year",
+          "category",
+          "nominee",
+          "artist",
+          "winner"
+        ],
+        "exact_match": false
+      },
+      "meta": {
+        "rule_id": "G01",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "e6120b8b-41ca-46ae-9bc5-f73fc2dcbea6",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "source_row_id"
+      },
+      "meta": {
+        "rule_id": "G02",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "1c1fa813-d25f-4bb9-9375-7978100cae0e",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "source_row_id"
+      },
+      "meta": {
+        "rule_id": "G03-source_row_id",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "698bf594-a056-47aa-9e7b-029f80527a58",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "year"
+      },
+      "meta": {
+        "rule_id": "G03-year",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "fdf388c7-fb4f-4c82-a81e-6e50c5ba2c44",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "category"
+      },
+      "meta": {
+        "rule_id": "G03-category",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "209055b9-6aba-4760-8a02-36400d5dbe7c",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_match_regex",
+      "kwargs": {
+        "column": "year",
+        "regex": "^\\d{4}$"
+      },
+      "meta": {
+        "rule_id": "G04",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "2ed0b0dd-01a1-48cb-ad2c-72f67d18452a",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_not_match_regex",
+      "kwargs": {
+        "column": "category",
+        "regex": "^\\s*$"
+      },
+      "meta": {
+        "rule_id": "G05",
+        "severity": "Critical",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "9ad6e50d-32a7-4304-bcd2-eb69dc971ca5",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_values_to_not_match_regex",
+      "kwargs": {
+        "column": "artist",
+        "regex": "^\\s*$"
+      },
+      "meta": {
+        "rule_id": "G06",
+        "severity": "Warning",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "e926acb0-d2b0-4dcd-8c67-b12c9e7d29e2",
+      "severity": "critical"
+    },
+    {
+      "type": "expect_column_unique_value_count_to_be_between",
+      "kwargs": {
+        "column": "winner",
+        "min_value": 2
+      },
+      "meta": {
+        "rule_id": "G07",
+        "severity": "Warning",
+        "requirements": [
+          "AR1",
+          "AR2",
+          "AR3"
+        ]
+      },
+      "id": "7ff1068d-b587-4af5-b1f2-14f753ed510e",
+      "severity": "critical"
+    }
+  ],
+  "meta": {
+    "great_expectations_version": "1.8.1"
+  },
+  "notes": null
+}

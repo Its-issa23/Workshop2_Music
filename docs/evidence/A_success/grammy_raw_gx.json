@@ -1,0 +1,455 @@
+{
+  "success": false,
+  "results": [
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "min_value": 1
+        },
+        "meta": {
+          "rule_id": "grammy_raw-COUNT",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "d46a434a-edad-4148-b3f1-2b0bf65c4d68",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": 4810
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_table_columns_to_match_set",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column_set": [
+            "source_row_id",
+            "year",
+            "category",
+            "nominee",
+            "artist",
+            "winner"
+          ],
+          "exact_match": false
+        },
+        "meta": {
+          "rule_id": "G01",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "17607d6e-c942-4158-85fa-156108668eb0",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": [
+          "artist",
+          "category",
+          "img",
+          "nominee",
+          "published_at",
+          "source_row_id",
+          "title",
+          "updated_at",
+          "winner",
+          "workers",
+          "year"
+        ],
+        "details": {
+          "mismatched": {
+            "unexpected": [
+              "img",
+              "published_at",
+              "title",
+              "updated_at",
+              "workers"
+            ]
+          }
+        }
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "source_row_id"
+        },
+        "meta": {
+          "rule_id": "G02",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "f524864d-2d80-471d-ac34-6a80b80f37a6",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "source_row_id"
+        },
+        "meta": {
+          "rule_id": "G03-source_row_id",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "b7ab572d-39f9-439e-8579-c409d23d4b01",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "year"
+        },
+        "meta": {
+          "rule_id": "G03-year",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "6092102b-275a-482f-8593-413f0d78b4fb",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "year",
+          "regex": "^\\d{4}$"
+        },
+        "meta": {
+          "rule_id": "G04",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "40d54b42-3ae8-44bd-b15d-f66af3a9ef3e",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "category"
+        },
+        "meta": {
+          "rule_id": "G03-category",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "ede66855-85ab-4b39-ab4f-4c2d10c9f668",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "category",
+          "regex": "^\\s*$"
+        },
+        "meta": {
+          "rule_id": "G05",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "1c6cc3fc-602c-4f62-96d1-ce4981ebb609",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": false,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "artist",
+          "regex": "^\\s*$"
+        },
+        "meta": {
+          "rule_id": "G06",
+          "severity": "Warning",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "df812105-8540-4b1a-a1c7-7d425de76656",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 1840,
+        "unexpected_percent": 38.25363825363826,
+        "partial_unexpected_list": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 38.25363825363826,
+        "unexpected_percent_nonmissing": 38.25363825363826,
+        "partial_unexpected_counts": [
+          {
+            "value": "",
+            "count": 10
+          }
+        ],
+        "partial_unexpected_index_list": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ]
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": false,
+      "expectation_config": {
+        "type": "expect_column_unique_value_count_to_be_between",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "winner",
+          "min_value": 2
+        },
+        "meta": {
+          "rule_id": "G07",
+          "severity": "Warning",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "1597cad8-aa0f-4d18-915d-df80667ebe80",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": 1
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    }
+  ],
+  "suite_name": "grammy_raw_suite",
+  "suite_parameters": {},
+  "statistics": {
+    "evaluated_expectations": 10,
+    "successful_expectations": 8,
+    "unsuccessful_expectations": 2,
+    "success_percent": 80.0
+  },
+  "meta": {
+    "great_expectations_version": "1.8.1",
+    "batch_spec": {
+      "batch_data": "PandasDataFrame"
+    },
+    "batch_markers": {
+      "ge_load_time": "20261015T213038.324500Z",
+      "pandas_data_fingerprint": "83edb5686fd42255708a40b73c1dd107"
+    },
+    "active_batch_definition": {
+      "datasource_name": "grammy_raw",
+      "data_connector_name": "fluent",
+      "data_asset_name": "grammy_raw_asset",
+      "batch_identifiers": {
+        "dataframe": "<DATAFRAME>"
+      }
+    },
+    "validation_id": "6034f1aa-7f1c-48cd-8751-a98b9f73bb7e",
+    "checkpoint_id": null,
+    "run_id": {
+      "run_name": null,
+      "run_time": "2026-10-15T21:30:38.400071+00:00"
+    },
+    "validation_time": "2026-10-15T21:30:38.400071+00:00",
+    "batch_parameters": {
+      "dataframe": "<DATAFRAME>"
+    }
+  },
+  "id": null
+}

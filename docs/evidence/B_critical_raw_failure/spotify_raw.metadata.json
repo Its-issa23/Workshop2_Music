@@ -1,0 +1,6 @@
+{
+  "path": "/opt/airflow/data/runs/494414a5e688f6f5d9b02fdf/spotify_raw.csv",
+  "sha256": "72898b43d840772fd8ca30bc597555dddd1d83e075f8af5fc123f3b476ad3abb",
+  "source": "CSV",
+  "fault_injected": true
+}

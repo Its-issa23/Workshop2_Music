@@ -1,0 +1,455 @@
+{
+  "success": false,
+  "results": [
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "min_value": 1
+        },
+        "meta": {
+          "rule_id": "grammy_raw-COUNT",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "eb242835-1b1a-4574-88ca-c140cce620b2",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": 4810
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_table_columns_to_match_set",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column_set": [
+            "source_row_id",
+            "year",
+            "category",
+            "nominee",
+            "artist",
+            "winner"
+          ],
+          "exact_match": false
+        },
+        "meta": {
+          "rule_id": "G01",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "e6120b8b-41ca-46ae-9bc5-f73fc2dcbea6",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": [
+          "artist",
+          "category",
+          "img",
+          "nominee",
+          "published_at",
+          "source_row_id",
+          "title",
+          "updated_at",
+          "winner",
+          "workers",
+          "year"
+        ],
+        "details": {
+          "mismatched": {
+            "unexpected": [
+              "img",
+              "published_at",
+              "title",
+              "updated_at",
+              "workers"
+            ]
+          }
+        }
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "source_row_id"
+        },
+        "meta": {
+          "rule_id": "G02",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "1c1fa813-d25f-4bb9-9375-7978100cae0e",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "source_row_id"
+        },
+        "meta": {
+          "rule_id": "G03-source_row_id",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "698bf594-a056-47aa-9e7b-029f80527a58",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "year"
+        },
+        "meta": {
+          "rule_id": "G03-year",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "fdf388c7-fb4f-4c82-a81e-6e50c5ba2c44",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "year",
+          "regex": "^\\d{4}$"
+        },
+        "meta": {
+          "rule_id": "G04",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "2ed0b0dd-01a1-48cb-ad2c-72f67d18452a",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "category"
+        },
+        "meta": {
+          "rule_id": "G03-category",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "209055b9-6aba-4760-8a02-36400d5dbe7c",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": true,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "category",
+          "regex": "^\\s*$"
+        },
+        "meta": {
+          "rule_id": "G05",
+          "severity": "Critical",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "9ad6e50d-32a7-4304-bcd2-eb69dc971ca5",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "partial_unexpected_list": [],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": []
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": false,
+      "expectation_config": {
+        "type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "artist",
+          "regex": "^\\s*$"
+        },
+        "meta": {
+          "rule_id": "G06",
+          "severity": "Warning",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "e926acb0-d2b0-4dcd-8c67-b12c9e7d29e2",
+        "severity": "critical"
+      },
+      "result": {
+        "element_count": 4810,
+        "unexpected_count": 1840,
+        "unexpected_percent": 38.25363825363826,
+        "partial_unexpected_list": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unexpected_percent_total": 38.25363825363826,
+        "unexpected_percent_nonmissing": 38.25363825363826,
+        "partial_unexpected_counts": [
+          {
+            "value": "",
+            "count": 10
+          }
+        ],
+        "partial_unexpected_index_list": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ]
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    },
+    {
+      "success": false,
+      "expectation_config": {
+        "type": "expect_column_unique_value_count_to_be_between",
+        "kwargs": {
+          "batch_id": "grammy_raw-grammy_raw_asset",
+          "column": "winner",
+          "min_value": 2
+        },
+        "meta": {
+          "rule_id": "G07",
+          "severity": "Warning",
+          "requirements": [
+            "AR1",
+            "AR2",
+            "AR3"
+          ]
+        },
+        "id": "7ff1068d-b587-4af5-b1f2-14f753ed510e",
+        "severity": "critical"
+      },
+      "result": {
+        "observed_value": 1
+      },
+      "meta": {},
+      "exception_info": {
+        "raised_exception": false,
+        "exception_traceback": null,
+        "exception_message": null
+      }
+    }
+  ],
+  "suite_name": "grammy_raw_suite",
+  "suite_parameters": {},
+  "statistics": {
+    "evaluated_expectations": 10,
+    "successful_expectations": 8,
+    "unsuccessful_expectations": 2,
+    "success_percent": 80.0
+  },
+  "meta": {
+    "great_expectations_version": "1.8.1",
+    "batch_spec": {
+      "batch_data": "PandasDataFrame"
+    },
+    "batch_markers": {
+      "ge_load_time": "20261015T213116.429762Z",
+      "pandas_data_fingerprint": "83edb5686fd42255708a40b73c1dd107"
+    },
+    "active_batch_definition": {
+      "datasource_name": "grammy_raw",
+      "data_connector_name": "fluent",
+      "data_asset_name": "grammy_raw_asset",
+      "batch_identifiers": {
+        "dataframe": "<DATAFRAME>"
+      }
+    },
+    "validation_id": "c5d4eb9c-0c32-4d75-ae32-1059dbbe2ec0",
+    "checkpoint_id": null,
+    "run_id": {
+      "run_name": null,
+      "run_time": "2026-10-15T21:31:16.495525+00:00"
+    },
+    "validation_time": "2026-10-15T21:31:16.495525+00:00",
+    "batch_parameters": {
+      "dataframe": "<DATAFRAME>"
+    }
+  },
+  "id": null
+}
