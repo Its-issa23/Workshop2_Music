@@ -12,6 +12,15 @@ La solución usa Docker Compose, PostgreSQL 16, Apache Airflow 3.1.8, Great Expe
 | AR2 · Popularidad | ¿Cómo cambia la popularidad de las canciones vinculadas entre categorías Grammy? | Popularidad media por canción Spotify distinta dentro de cada categoría | `dw.kpi_popularity` |
 | AR3 · Perfil de audio | ¿Cómo varían la energía y la bailabilidad según la década del registro Grammy? | Medias por canción Spotify distinta dentro de cada década | `dw.kpi_audio` |
 
+Reglas
+G01 — Esquema: deben estar presentes las columnas requeridas (Critical).
+G02 — Unicidad: source_row_id no debe repetirse (Critical).
+G03 — Completitud: ID, año y categoría no pueden ser nulos (Critical).
+G04 — Formato: el año debe tener cuatro dígitos (Critical).
+G05 — Completitud: la categoría no puede estar vacía (Critical).
+G06 — Completitud: revisar créditos de artista vacíos (Warning).
+G07 — Adecuación: revisar si winner tiene al menos dos valores distintos (Warning). En estos datos es constante, por eso no se usa para afirmar quién ganó.
+
 Las categorías elegibles son una selección conservadora de premios a interpretaciones de canciones. El análisis no pretende cubrir todas las categorías Grammy ni afirmar quién ganó un premio.
 
 ## Resultado y estado de las verificaciones
