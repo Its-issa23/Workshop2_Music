@@ -54,6 +54,14 @@ flowchart LR
 
 El DAG `reliable_music_pipeline` contiene siete tareas. Las ramas Grammy y Spotify se validan por separado y deben pasar antes de la transformación. XCom transporta rutas y metadatos compactos; los archivos de trabajo se guardan por ejecución. Una regla crítica fallida bloquea las tareas posteriores.
 
+G01 — Esquema: deben estar presentes las columnas requeridas (Critical).
+G02 — Unicidad: source_row_id no debe repetirse (Critical).
+G03 — Completitud: ID, año y categoría no pueden ser nulos (Critical).
+G04 — Formato: el año debe tener cuatro dígitos (Critical).
+G05 — Completitud: la categoría no puede estar vacía (Critical).
+G06 — Completitud: revisar créditos de artista vacíos (Warning).
+G07 — Adecuación: revisar si winner tiene al menos dos valores distintos (Warning). En estos datos es constante, por eso no se usa para afirmar quién ganó.
+
 La preparación inicial de Grammy carga el CSV original en una tabla de PostgreSQL. Esa preparación es independiente del ETL. El proceso de carga transforma los registros a un esquema estrella y reemplaza el snapshot en una transacción: si la operación falla antes del commit, el snapshot anterior permanece disponible.
 
 ### Modelo estrella de Power BI
