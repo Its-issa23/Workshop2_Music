@@ -60,13 +60,8 @@ La preparación inicial de Grammy carga el CSV original en una tabla de PostgreS
 
 El modelo semántico de Power BI consulta las tablas de hechos y dimensiones del almacén. `fact_grammy_record` queda al centro; cada dimensión filtra la tabla de hechos por una relación activa de muchos a uno. Las vistas `dw.kpi_*` se conservan como consultas de referencia y verificación en PostgreSQL, no como tablas desconectadas del modelo de Power BI.
 
-```mermaid
-erDiagram
-    DIM_YEAR ||--o{ FACT_GRAMMY_RECORD : year_key
-    DIM_CATEGORY ||--o{ FACT_GRAMMY_RECORD : category_key
-    DIM_ARTIST ||--o{ FACT_GRAMMY_RECORD : artist_key
-    DIM_TRACK |o--o{ FACT_GRAMMY_RECORD : track_key
-```
+<img width="976" height="647" alt="image" src="https://github.com/user-attachments/assets/9a9f8dce-2585-47a4-b94a-2afeac07a6c4" />
+
 
 Las claves sustitutas de relación se ocultan en el panel de campos para que el usuario del informe trabaje principalmente con nombres, categorías, décadas y medidas. El modelo completo está en [`powerbi/Music.SemanticModel/model.bim`](powerbi/Music.SemanticModel/model.bim).
 
