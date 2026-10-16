@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Popularidad"
+                      "Entity": "dim_category"
                     }
                   },
                   "Property": "category_name"
                 }
               },
-              "queryRef": "Popularidad.category_name",
+              "queryRef": "dim_category.category_name",
               "nativeQueryRef": "category_name"
             }
           ]
@@ -38,13 +38,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Popularidad"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Popularidad media"
                 }
               },
-              "queryRef": "Popularidad.Popularidad media",
+              "queryRef": "fact_grammy_record.Popularidad media",
               "nativeQueryRef": "Popularidad media"
             }
           ]

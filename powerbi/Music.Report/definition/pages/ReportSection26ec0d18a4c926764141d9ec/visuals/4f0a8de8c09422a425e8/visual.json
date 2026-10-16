@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Cobertura"
+                      "Entity": "dim_category"
                     }
                   },
                   "Property": "category_name"
                 }
               },
-              "queryRef": "Cobertura.category_name",
+              "queryRef": "dim_category.category_name",
               "nativeQueryRef": "category_name"
             }
           ]
@@ -38,13 +38,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Cobertura"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Cobertura"
                 }
               },
-              "queryRef": "Cobertura.Cobertura",
+              "queryRef": "fact_grammy_record.Cobertura",
               "nativeQueryRef": "Cobertura"
             }
           ]

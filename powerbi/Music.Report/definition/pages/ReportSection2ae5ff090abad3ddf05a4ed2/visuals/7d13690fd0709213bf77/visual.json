@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Popularidad"
+                      "Entity": "dim_category"
                     }
                   },
                   "Property": "category_name"
                 }
               },
-              "queryRef": "Popularidad.category_name",
+              "queryRef": "dim_category.category_name",
               "nativeQueryRef": "category_name"
             },
             {
@@ -34,13 +34,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Popularidad"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Canciones por categoria"
                 }
               },
-              "queryRef": "Popularidad.Canciones por categoria",
+              "queryRef": "fact_grammy_record.Canciones por categoria",
               "nativeQueryRef": "Canciones por categoria"
             }
           ]

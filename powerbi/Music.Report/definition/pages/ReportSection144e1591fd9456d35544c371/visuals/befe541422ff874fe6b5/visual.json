@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Audio"
+                      "Entity": "dim_year"
                     }
                   },
                   "Property": "decade"
                 }
               },
-              "queryRef": "Audio.decade",
+              "queryRef": "dim_year.decade",
               "nativeQueryRef": "decade"
             },
             {
@@ -34,13 +34,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Audio"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Energia media"
                 }
               },
-              "queryRef": "Audio.Energia media",
+              "queryRef": "fact_grammy_record.Energia media",
               "nativeQueryRef": "Energia media"
             },
             {
@@ -48,13 +48,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Audio"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Bailabilidad media"
                 }
               },
-              "queryRef": "Audio.Bailabilidad media",
+              "queryRef": "fact_grammy_record.Bailabilidad media",
               "nativeQueryRef": "Bailabilidad media"
             },
             {
@@ -62,13 +62,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Audio"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Canciones por decada"
                 }
               },
-              "queryRef": "Audio.Canciones por decada",
+              "queryRef": "fact_grammy_record.Canciones por decada",
               "nativeQueryRef": "Canciones por decada"
             }
           ]

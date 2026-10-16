@@ -7,35 +7,60 @@
     "powerbi/Music.Report/definition/report.json",
     "powerbi/Music.Report/definition/version.json",
     "powerbi/Music.Report/definition/pages/pages.json",
-    "powerbi/Music.Report/definition/pages/AR1/page.json",
-    "powerbi/Music.Report/definition/pages/AR2/page.json",
-    "powerbi/Music.Report/definition/pages/AR3/page.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/card0/visual.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/card1/visual.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/card2/visual.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/coverage/visual.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/header1/visual.json",
-    "powerbi/Music.Report/definition/pages/AR1/visuals/note1/visual.json",
-    "powerbi/Music.Report/definition/pages/AR2/visuals/header2/visual.json",
-    "powerbi/Music.Report/definition/pages/AR2/visuals/note2/visual.json",
-    "powerbi/Music.Report/definition/pages/AR2/visuals/popularity/visual.json",
-    "powerbi/Music.Report/definition/pages/AR2/visuals/sample/visual.json",
-    "powerbi/Music.Report/definition/pages/AR3/visuals/audio/visual.json",
-    "powerbi/Music.Report/definition/pages/AR3/visuals/audioTable/visual.json",
-    "powerbi/Music.Report/definition/pages/AR3/visuals/header3/visual.json",
-    "powerbi/Music.Report/definition/pages/AR3/visuals/note3/visual.json"
+    "powerbi/Music.Report/definition/pages/ReportSection144e1591fd9456d35544c371/page.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/page.json",
+    "powerbi/Music.Report/definition/pages/ReportSection2ae5ff090abad3ddf05a4ed2/page.json",
+    "powerbi/Music.Report/definition/pages/ReportSection144e1591fd9456d35544c371/visuals/12d1389a35332b6b5a5e/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection144e1591fd9456d35544c371/visuals/3ccadb68f141051c9b03/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection144e1591fd9456d35544c371/visuals/929f3aa0476f57aa0a6c/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection144e1591fd9456d35544c371/visuals/befe541422ff874fe6b5/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/072cc430ed94cd2d2f5f/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/4b54266c687d940a806a/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/4f0a8de8c09422a425e8/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/7208615a28c9c12bd569/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/ab99605213196929dada/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection26ec0d18a4c926764141d9ec/visuals/b32bc7c0a7779e301dab/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection2ae5ff090abad3ddf05a4ed2/visuals/156af38ea16740d8547c/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection2ae5ff090abad3ddf05a4ed2/visuals/160d7ff78e8bd05321f9/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection2ae5ff090abad3ddf05a4ed2/visuals/6e4cd26d129ccfd90c0f/visual.json",
+    "powerbi/Music.Report/definition/pages/ReportSection2ae5ff090abad3ddf05a4ed2/visuals/7d13690fd0709213bf77/visual.json"
   ],
   "schema_sources": [
     "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",
     "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
     "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
     "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/versionMetadata/1.0.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualConfiguration/2.0.0/schema-embedded.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/semanticQuery/1.2.0/schema.json",
-    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/formattingObjectDefinitions/1.3.0/schema.json"
-  ]
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualConfiguration/2.7.0/schema-embedded.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/semanticQuery/1.4.0/schema.json",
+    "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/formattingObjectDefinitions/1.5.0/schema.json"
+  ],
+  "star_schema": {
+    "fact": "fact_grammy_record",
+    "dimensions": {
+      "dim_year": "year_key",
+      "dim_category": "category_key",
+      "dim_artist": "artist_key",
+      "dim_track": "track_key"
+    },
+    "active_many_to_one_relationships": 4,
+    "report_tables": [
+      "dim_category",
+      "dim_year",
+      "fact_grammy_record"
+    ],
+    "fact_measures": [
+      "Bailabilidad media",
+      "Canciones por categoria",
+      "Canciones por decada",
+      "Cobertura",
+      "Elegibles",
+      "Energia media",
+      "Popularidad media",
+      "Vinculados"
+    ]
+  }
 }

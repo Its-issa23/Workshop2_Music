@@ -15,7 +15,7 @@
 | E11 | Reglas de borde | docs/evidence/tests.xml | Duplicados, conflictos, ambigüedad, nulos y gates | Aprobado |
 | E12 | Consultas DW | docs/evidence/dw_analytics.json | Tres productos analíticos calculados por PostgreSQL | Aprobado |
 | E13 | Power BI definición | powerbi/Music.pbip; docs/evidence/powerbi_schema_validation.json | Tres páginas, vistas DW DirectQuery, JSON válido | Aprobado |
-| E14 | Power BI renderizado | docs/evidence/powerbi_AR*.png | Valores y legibilidad en Desktop | Pendiente de autenticación local |
+| E14 | Power BI renderizado | docs/evidence/powerbi_AR1.jpg | AR1 carga con valores 161, 33 y 20,50%; falta capturar AR2 y AR3 | Parcial; autenticación completada |
 | E15 | Airflow Graph/Grid | docs/evidence/airflow_A.png, airflow_B.png | Evidencia visual complementaria obligatoria | Pendiente de sesión UI; estados/logs ya preservados |
 | E16 | GitHub | URL del repositorio | Publicación del entregable versionado | Pendiente de destino y acceso |
 
@@ -27,4 +27,4 @@ La extracción Spotify tiene éxito porque adquirir un archivo no valida su sem�
 
 ## Capturas a completar
 
-En Airflow, abrir el DAG y seleccionar `evidence_A_success_*`: Graph o Grid debe mostrar las siete tareas verdes. Luego seleccionar `evidence_B_critical_raw_failure_*`: mostrar validate_spotify_raw fallida y descendientes bloqueados. Abrir Logs del gate y acompañar la captura con S03 y el JSON. En Power BI, completar la conexión PostgreSQL y capturar las tres páginas con sus datos.
+En Airflow, abrir el DAG y seleccionar `evidence_A_success_*`: Graph o Grid debe mostrar las siete tareas verdes. Luego seleccionar `evidence_B_critical_raw_failure_*`: mostrar validate_spotify_raw fallida y descendientes bloqueados. Abrir Logs del gate y acompañar la captura con S03 y el JSON. En Power BI, AR1 ya se autenticó y se capturó; completar y revisar las capturas AR2 y AR3 con sus datos.

@@ -1,137 +1,234 @@
 # Workshop 2 · Reliable Music Batch Pipeline
 
-Sistema reproducible que integra Spotify CSV con Grammy Awards **extraído desde PostgreSQL**, valida datos con Great Expectations, orquesta siete tareas con **Apache Airflow 3.1.8** y carga una estrella dimensional consultada desde **Power BI**.
+Proyecto académico de ingeniería de datos que integra registros de los premios Grammy con atributos musicales de Spotify. El flujo prepara y valida los datos, los transforma en un modelo dimensional de PostgreSQL y presenta tres preguntas analíticas en Power BI.
 
-La especificación adjunta se titula *Workshop-2: Building a Reliable Batch Data Pipeline*. Aunque la solicitud menciona «proyecto 1», esta implementación sigue el documento adjunto. Todo el material de `sources/` es referencia de solo lectura.
+La solución usa Docker Compose, PostgreSQL 16, Apache Airflow 3.1.8, Great Expectations y Power BI Desktop. Airflow orquesta el proceso por lotes; Power BI consulta el almacén mediante DirectQuery.
 
-## Resultado verificado
+## ¿Qué responde el análisis?
 
-- 114.000 filas Spotify y 4.810 registros Grammy originales.
-- Preparación Grammy reconciliada fila por fila con PostgreSQL.
-- Prueba A: siete tareas correctas en el scheduler real.
-- Prueba B: popularity=101 en copia aislada; S03 falla; transformación, validación preparada y carga quedan `upstream_failed`; el DW permanece intacto.
-- Prueba C: reejecución con igual entrada conserva 4.810 hechos, las medidas y el hash de todas las filas de negocio.
-- 10 pruebas automatizadas aprobadas, incluyendo rollback a mitad de carga y rechazo de preparado alterado; detalle en `docs/evidence/tests.xml`.
-- Power BI: proyecto PBIP/PBIR con DirectQuery a `music_dw`, tres páginas y tres visualizaciones principales; definiciones validadas contra esquemas de Microsoft. La primera conexión requiere introducir las credenciales locales en Power BI Desktop. No confundir validación de esquema con comprobación visual de datos.
-
-Estado detallado y evidencias: [registro de evidencias](docs/08_evidence_register.md).
-
-## Objetivo y requisitos analíticos
-
-| ID | Pregunta | KPI | Consulta DW |
+| ID | Pregunta | Indicador | Consulta analítica DW de referencia |
 |---|---|---|---|
-| AR1 | ¿Qué cobertura tiene el cruce inequívoco por categoría de canciones? | vinculados / elegibles | dw.kpi_coverage |
-| AR2 | ¿Cómo cambia la popularidad de las canciones vinculadas entre categorías? | Media por track_id distinto dentro de categoría | dw.kpi_popularity |
-| AR3 | ¿Cómo varía el perfil de audio por década Grammy? | Energía y bailabilidad medias por canción distinta dentro de década | dw.kpi_audio |
+| AR1 · Cobertura | ¿Qué proporción de registros Grammy elegibles se vinculó inequívocamente con una canción de Spotify? | Canciones vinculadas / registros elegibles, además del detalle por categoría | `dw.kpi_coverage` |
+| AR2 · Popularidad | ¿Cómo cambia la popularidad de las canciones vinculadas entre categorías Grammy? | Popularidad media por canción Spotify distinta dentro de cada categoría | `dw.kpi_popularity` |
+| AR3 · Perfil de audio | ¿Cómo varían la energía y la bailabilidad según la década del registro Grammy? | Medias por canción Spotify distinta dentro de cada década | `dw.kpi_audio` |
 
-El detalle de atributos, grano y necesidad de ambas fuentes está en [requisitos](docs/01_requirements.md).
+Las categorías elegibles son una selección conservadora de premios a interpretaciones de canciones. El análisis no pretende cubrir todas las categorías Grammy ni afirmar quién ganó un premio.
 
-## Puesta en marcha
+## Resultado y estado de las verificaciones
 
-Requisitos: Docker Desktop con contenedores Linux y Compose v2; al menos 4 GB de memoria disponibles para el entorno; Power BI Desktop compatible con PBIP/PBIR. Python local solo se usa para generar `.env` (biblioteca estándar).
+- Los datos de entrada contienen 114.000 filas de Spotify y 4.810 registros Grammy.
+- La integración produjo 161 registros elegibles: 33 vinculados, 115 sin coincidencia y 13 ambiguos. Los otros 4.649 registros quedan fuera del alcance analítico definido.
+- La cobertura global observada es 20,50 %.
+- Las pruebas A/B/C se ejecutaron con el scheduler de Airflow. A completó el flujo; B rechazó un valor inválido de popularidad sin alterar el almacén; C confirmó que repetir la carga con los mismos datos conserva el resultado.
+- Las 10 pruebas automatizadas pasaron. Los resultados están en [`docs/evidence/tests.xml`](docs/evidence/tests.xml) y el resumen de escenarios en [`docs/evidence/reliability_summary.json`](docs/evidence/reliability_summary.json).
+- Las definiciones del proyecto Power BI se validaron contra sus esquemas y la conexión local a PostgreSQL se comprobó en Power BI Desktop. La captura actual de AR1 aparece abajo; este README reserva espacio para incorporar las capturas de AR2 y AR3.
 
-1. Colocar los archivos originales `spotify_dataset.csv` y `the_grammy_awards.csv` en `sources/`. El paquete local entregado incluye copias de los originales. En GitHub están excluidos por defecto: distribuirlos por el canal autorizado del curso y verificar sus SHA256 en `docs/evidence/profiling.json`.
-2. Crear secretos locales y carpetas:
+## Capturas de Power BI
+
+### AR1 · Cobertura del cruce
+
+![Power BI · cobertura Grammy–Spotify: elegibles, vinculados y porcentaje de cobertura](docs/evidence/powerbi_AR1.jpg)
+
+### AR2 · Popularidad por categoría
+
+<!-- Agregar aquí la captura de Power BI y guardarla como docs/evidence/powerbi_AR2.jpg. -->
+
+*Espacio reservado para la captura de popularidad por categoría.*
+
+### AR3 · Perfil de audio por década
+
+<!-- Agregar aquí la captura de Power BI y guardarla como docs/evidence/powerbi_AR3.jpg. -->
+
+*Espacio reservado para la captura de energía y bailabilidad por década.*
+
+## Cómo funciona
+
+```mermaid
+flowchart LR
+    S[Spotify CSV] --> ES[extract_spotify]
+    ES --> VS[validate_spotify_raw]
+    G[Grammy en PostgreSQL source] --> EG[extract_grammys]
+    EG --> VG[validate_grammys_raw]
+    VS --> T[transform_and_integrate]
+    VG --> T
+    T --> VP[validate_prepared]
+    VP --> L[load_dw]
+    L --> DW[Almacén dimensional music_dw]
+    DW --> BI[Power BI DirectQuery]
+```
+
+El DAG `reliable_music_pipeline` contiene siete tareas. Las ramas Grammy y Spotify se validan por separado y deben pasar antes de la transformación. XCom transporta rutas y metadatos compactos; los archivos de trabajo se guardan por ejecución. Una regla crítica fallida bloquea las tareas posteriores.
+
+La preparación inicial de Grammy carga el CSV original en una tabla de PostgreSQL. Esa preparación es independiente del ETL. El proceso de carga transforma los registros a un esquema estrella y reemplaza el snapshot en una transacción: si la operación falla antes del commit, el snapshot anterior permanece disponible.
+
+### Modelo estrella de Power BI
+
+El modelo semántico de Power BI consulta las tablas de hechos y dimensiones del almacén. `fact_grammy_record` queda al centro; cada dimensión filtra la tabla de hechos por una relación activa de muchos a uno. Las vistas `dw.kpi_*` se conservan como consultas de referencia y verificación en PostgreSQL, no como tablas desconectadas del modelo de Power BI.
+
+```mermaid
+erDiagram
+    DIM_YEAR ||--o{ FACT_GRAMMY_RECORD : year_key
+    DIM_CATEGORY ||--o{ FACT_GRAMMY_RECORD : category_key
+    DIM_ARTIST ||--o{ FACT_GRAMMY_RECORD : artist_key
+    DIM_TRACK |o--o{ FACT_GRAMMY_RECORD : track_key
+```
+
+Las claves sustitutas de relación se ocultan en el panel de campos para que el usuario del informe trabaje principalmente con nombres, categorías, décadas y medidas. El modelo completo está en [`powerbi/Music.SemanticModel/model.bim`](powerbi/Music.SemanticModel/model.bim).
+
+### Criterios de integración y calidad
+
+- Se normalizan título y artista para buscar coincidencias exactas; no se usa fuzzy matching.
+- IDs de Spotify repetidos con atributos coherentes se consolidan. IDs con valores analíticos contradictorios se excluyen del cruce.
+- Si hay más de una canción candidata para un registro Grammy, se marca como ambiguo y no se le asignan medidas.
+- Las medidas faltantes permanecen nulas; cero no se usa como valor sustituto.
+- Las reglas críticas de esquema, nulidad, dominio e integridad detienen el flujo. Los hallazgos definidos como advertencias quedan registrados y permiten continuar.
+- AR2 y AR3 promedian canciones distintas dentro del grupo analizado para evitar contar varias veces la misma canción.
+
+## Requisitos
+
+- Windows 10/11 o un entorno compatible con Docker Desktop.
+- Docker Desktop en modo Linux y Docker Compose v2.
+- Al menos 4 GB de memoria disponibles para contenedores.
+- Los archivos de entrada `spotify_dataset.csv` y `the_grammy_awards.csv`, obtenidos por el canal autorizado del curso.
+- Power BI Desktop con soporte para proyectos PBIP/PBIR para abrir el informe.
+- Python local solo es necesario para crear la configuración inicial; `scripts/init_env.py` usa la biblioteca estándar.
+
+Los archivos de datos originales se mantienen fuera de Git y dentro de `sources/` en la copia local. No se deben subir al repositorio. El perfil y los SHA256 de referencia están en [`docs/evidence/profiling.json`](docs/evidence/profiling.json).
+
+## Instalación y ejecución
+
+Ejecuta los comandos siguientes desde la carpeta raíz del repositorio, en PowerShell.
+
+### 1. Crear la configuración local
 
 ```powershell
 python scripts/init_env.py
 ```
 
-3. Construir e iniciar PostgreSQL:
+El script crea `.env` con credenciales locales aleatorias si ese archivo todavía no existe y prepara las carpetas de trabajo. No muestra las credenciales. Si `.env` ya existe, lo conserva.
+
+Coloca los dos CSV originales en `sources/` con estos nombres exactos:
+
+```text
+sources/spotify_dataset.csv
+sources/the_grammy_awards.csv
+```
+
+### 2. Construir e iniciar PostgreSQL
 
 ```powershell
 docker compose build
 docker compose up -d postgres
+docker compose ps
+```
+
+Espera a que PostgreSQL aparezca como saludable. Después carga la fuente Grammy y crea la estructura del almacén:
+
+```powershell
 docker compose run --rm bootstrap
 ```
 
-`bootstrap` crea la tabla operacional Grammy, carga el CSV con todos los valores text originales y verifica cantidad y contenido. Es preparación de fuente, **no** el Load del ETL. Si se ejecuta nuevamente reemplaza solo la fuente operacional del entorno de este proyecto. El DDL del DW se aplica sin eliminar hechos existentes.
+`bootstrap` compara el número de registros y el contenido importado. Al volver a ejecutarlo, reemplaza la tabla operacional Grammy de este entorno; no es la carga del ETL.
 
-4. Iniciar Airflow y verificar versión:
+### 3. Iniciar Airflow
 
 ```powershell
 docker compose up -d airflow
 docker compose exec airflow airflow version
 ```
 
-Abrir [Airflow local](http://localhost:8080). Usuario `admin`; la contraseña de desarrollo se genera en `/opt/airflow/simple_auth_manager_passwords.json.generated` dentro del contenedor. Consultarla localmente en Docker Desktop o con el siguiente comando, sin compartirla ni guardarla en Git:
+Abre [http://localhost:8080](http://localhost:8080) y busca el DAG `reliable_music_pipeline`. El usuario local es `admin`; la contraseña de desarrollo se guarda dentro del contenedor en `/opt/airflow/simple_auth_manager_passwords.json.generated`:
 
 ```powershell
 docker compose exec airflow cat /opt/airflow/simple_auth_manager_passwords.json.generated
 ```
 
-Esperar a que el DAG `reliable_music_pipeline` aparezca. Las primeras importaciones de DAG pueden tardar un minuto. La infraestructura de este repositorio usa el nombre Compose `workshop2-music` y puertos de loopback 8080/5433.
+No compartas esa contraseña ni la guardes en Git. La primera carga de Airflow puede tardar alrededor de un minuto mientras se registran los DAGs.
 
-5. Ejecutar las pruebas obligatorias (dispara DAGs mediante el scheduler, no simula sus estados):
+### 4. Ejecutar las pruebas de fiabilidad y la suite automatizada
 
 ```powershell
 docker compose exec airflow python scripts/run_reliability.py
 docker compose exec airflow pytest -q tests --junitxml=docs/evidence/tests.xml
 ```
 
-El primer comando produce A/B/C, logs, suites GX, resultados por regla, reconciliación, comparación DW y consultas KPI. La carpeta de evidencia de cada escenario conserva la última demostración; las ejecuciones anteriores siguen en los metadatos Airflow y `data/runs/` mientras se mantenga el entorno.
+El primer comando dispara tres ejecuciones reales en el scheduler y conserva los estados de tareas, logs, resultados de calidad, snapshots del DW y consultas analíticas bajo `docs/evidence/`. La prueba de fallo trabaja sobre una copia de los datos para no alterar los archivos originales.
 
-6. Abrir `powerbi/Music.pbip` en Power BI Desktop. Conectar al servidor `localhost:5433`, base `music_dw`, autenticación de base de datos, usuario y contraseña de `.env`. La contraseña se introduce en la aplicación; el proyecto no la contiene. Ver [guía Power BI](powerbi/README.md).
+Para validar las definiciones JSON de Power BI:
 
-7. Detener servicios conservando datos:
+```powershell
+docker compose exec airflow python scripts/validate_powerbi.py
+```
+
+## Abrir y conectar Power BI
+
+1. Confirma que Docker está activo y que el servicio PostgreSQL está saludable.
+2. Abre `powerbi/Music.pbip` con Power BI Desktop.
+3. Si solicita las credenciales de PostgreSQL, elige autenticación de base de datos e introduce:
+
+   - Servidor: `localhost:5433`
+   - Base de datos: `music_dw`
+   - Usuario: el valor `POSTGRES_USER` de `.env` (por defecto, `music_admin`)
+   - Contraseña: el valor `POSTGRES_PASSWORD` de `.env`
+
+4. Selecciona **Conectar** y espera a que carguen las visualizaciones.
+
+El informe tiene tres páginas: Cobertura, Popularidad por categoría y Perfil de audio por década. Power BI consulta las vistas `dw.kpi_coverage`, `dw.kpi_popularity` y `dw.kpi_audio`; no lee directamente los CSV. Las credenciales no se incluyen en el proyecto ni deben pegarse en este README.
+
+La guía detallada del informe está en [`powerbi/README.md`](powerbi/README.md).
+
+## Detener y reanudar
+
+Para detener los servicios y conservar las bases de datos:
 
 ```powershell
 docker compose stop
 ```
 
-Para reanudar: `docker compose up -d postgres airflow`. No es necesario volver a importar Grammy después de cada inicio. Los volúmenes conservan metadatos y bases de datos.
+Para reanudarlos:
 
-## Arquitectura y tareas
-
-```mermaid
-flowchart LR
- S[Spotify CSV] --> ES[extract_spotify] --> VS[validate_spotify_raw]
- G[Grammy PostgreSQL] --> EG[extract_grammys] --> VG[validate_grammys_raw]
- VS --> T[transform_and_integrate]
- VG --> T
- T --> VP[validate_prepared] --> L[load_dw]
- L --> DW[PostgreSQL estrella dimensional] --> BI[Power BI DirectQuery]
+```powershell
+docker compose up -d postgres airflow
 ```
 
-TaskFlow se importa desde `airflow.sdk`. XCom contiene rutas y metadatos compactos. Los datasets permanecen en carpetas por run_id, compartidas con Docker. Las dependencias `all_success` bloquean transformación/carga ante fallos críticos.
+Los volúmenes de Docker conservan las bases de datos y los metadatos de Airflow. No es necesario volver a importar Grammy después de cada reinicio.
 
-## Perfilado, calidad y transformación
+## Estructura del repositorio
 
-El [notebook ejecutado](notebooks/data_profiling.ipynb) lee Grammy desde PostgreSQL y Spotify desde CSV. Presenta estructura, nulos/blancos, duplicados, distribuciones, categorías, fechas y compatibilidad. `src/profile.py` produce el perfil original reproducible sin alterar fuentes.
+| Ruta | Contenido |
+|---|---|
+| `dags/` | DAG de Airflow y sus siete tareas |
+| `src/` | Extracción, validación, transformación, carga y utilidades |
+| `sql/` | Bases de datos, esquema estrella y vistas analíticas |
+| `tests/` | Pruebas unitarias y de integración del proceso |
+| `scripts/` | Inicialización de secretos, fiabilidad y validación Power BI |
+| `sources/` | Entradas originales locales; excluidas de Git |
+| `data/`, `logs/` | Datos de ejecución y logs locales; excluidos de Git |
+| `powerbi/` | Proyecto PBIP/PBIR, modelo y guía del informe |
+| `docs/` | Diseño, decisiones, trazabilidad y evidencias del proyecto |
+| `notebooks/` | Notebook reproducible de perfilado de datos |
 
-Hallazgos: 22.259 repeticiones de track_id; 720 IDs con atributos analíticos contradictorios; 1 fila Spotify sin identidad completa; 1.840 artist Grammy ausentes y `winner=True` en las 4.810 filas. Por tanto, no se calculan tasas de ganadores ni se afirma quién ganó.
+## Decisiones y limitaciones conocidas
 
-La transformación conserva un registro por Grammy, normaliza título/artista, colapsa repeticiones consistentes por track_id y pone en cuarentena los conflictos. No usa fuzzy matching. Con más de un ID candidato, el registro es ambiguo y no aporta medidas. Resultado observado: 161 elegibles, 33 matched, 115 unmatched, 13 ambiguous y 4.649 out_of_scope. Cobertura global: 20,50%.
+- El campo `winner` aparece como verdadero en todos los registros Grammy disponibles y no permite distinguir ganadores; por eso el proyecto no calcula tasas de premios ganados.
+- Spotify representa una instantánea sin fecha histórica fiable. Popularidad y atributos de audio describen los valores de esa fuente, no su evolución en el tiempo.
+- La cobertura mide el cruce inequívoco dentro de las categorías elegibles definidas, no la cobertura de todo el catálogo Grammy.
+- Las colaboraciones, versiones y diferencias de escritura pueden impedir una coincidencia exacta. Los casos dudosos se dejan sin vincular en lugar de adivinar.
+- Las claves sustitutas del almacén pueden cambiar al reemplazar el snapshot. No se implementa historial SCD porque no hay snapshots fechados.
 
-Véanse [riesgos](docs/02_profiling_and_risks.md), [reglas GX](docs/04_quality_rules.md) y [contrato de integración](docs/05_transformation_integration.md).
+## Documentación y evidencias
 
-## Validación automatizada
+- [Requisitos analíticos](docs/01_requirements.md)
+- [Perfilado y riesgos](docs/02_profiling_and_risks.md)
+- [Modelo dimensional](docs/03_dimensional_model.md)
+- [Reglas de calidad](docs/04_quality_rules.md)
+- [Transformación e integración](docs/05_transformation_integration.md)
+- [Arquitectura y fiabilidad](docs/06_architecture_reliability.md)
+- [Trazabilidad de extremo a extremo](docs/07_traceability.md)
+- [Registro de evidencias](docs/08_evidence_register.md)
+- [Guion de demostración](docs/09_defense.md)
+- [Referencias técnicas](docs/10_references.md)
 
-Cada capa tiene activo pandas, BatchDefinition, ExpectationSuite y ValidationDefinition independientes. `ValidationDefinition.run` constituye la ejecución controlada: persiste JSON completo, suite y política antes de bloquear o aceptar. Las reglas llevan `meta.rule_id` y severidad.
+## Uso del repositorio
 
-Las advertencias esperadas (duplicados por género, artistas ausentes, winner constante y cobertura incompleta) se conservan y no detienen el lote. Las reglas críticas de esquema, nulidad, dominio, unicidad e integridad sí lo detienen. El Load exige además el SHA256 aceptado del archivo preparado, evitando cargar un archivo modificado después del gate.
-
-## Modelo dimensional y carga
-
-Grano: un hecho por registro Grammy original identificado por ordinal `source_row_id`. Dimensiones: año/década, categoría, crédito de artista y canción Spotify. Hay PK, FKs, business keys UNIQUE y restricciones de dominios. Las medidas faltantes se conservan NULL; cero sigue significando cero.
-
-La carga reemplaza el snapshot dentro de una transacción con advisory lock y auditoría. Si falla antes del commit se conserva el snapshot previo. AR2/3 deduplican canciones dentro del grupo antes de promediar. [Modelo](docs/03_dimensional_model.md), [DDL](sql/dw_schema.sql).
-
-## Fallos, reintentos y observabilidad
-
-Extracción PostgreSQL y carga: dos reintentos con espera inicial de 20 segundos y backoff para errores transitorios. Validación, transformación y lectura local: cero reintentos. Los errores deterministas disparan `AirflowFailException` y no consumen reintentos de conexión. Logs incluyen run_id, cantidades, resultado de calidad y causa del fallo.
-
-La prueba B modifica una copia del raw Spotify con `inject_raw_failure=true`; los originales no cambian. El fallo se vincula a S03 y su resultado GX. La reejecución compara conteos, sumas de control y SHA256 de todos los hechos con claves naturales. [Política completa](docs/06_architecture_reliability.md).
-
-## Documentación y defensa
-
-- [Trazabilidad de extremo a extremo](docs/07_traceability.md).
-- [Registro de evidencias y pendientes](docs/08_evidence_register.md).
-- [Guion de demostración y defensa](docs/09_defense.md).
-- [Referencias técnicas oficiales](docs/10_references.md).
-
-## Limitaciones
-
-La cobertura conservadora no representa todo el catálogo Grammy. `winner` carece de discriminación y no es una verdad verificada de premios. Spotify no aporta fecha de snapshot: popularidad/audio no son históricos. Los créditos colaborativos y versiones distintas pueden no coincidir. Las claves sustitutas cambian con el reemplazo de snapshot; no se publica un historial SCD.
-
-Power BI requiere la primera autenticación local y verificar las tres páginas renderizadas. La captura de Graph/Grid de Airflow requiere iniciar sesión en su UI. El repositorio está preparado para GitHub; la publicación requiere un repositorio de destino y acceso autorizado. Los pendientes reales se mantienen explícitos en el registro de evidencias.
+`.env`, las bases de datos, los logs, los datos de ejecución y los CSV originales están excluidos de Git. Antes de compartir cambios, revisa `git status` y confirma que no estás incluyendo contraseñas ni archivos de datos sujetos a restricciones de distribución.

@@ -20,13 +20,13 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Cobertura"
+                      "Entity": "fact_grammy_record"
                     }
                   },
                   "Property": "Vinculados"
                 }
               },
-              "queryRef": "Cobertura.Vinculados",
+              "queryRef": "fact_grammy_record.Vinculados",
               "nativeQueryRef": "Vinculados"
             }
           ]

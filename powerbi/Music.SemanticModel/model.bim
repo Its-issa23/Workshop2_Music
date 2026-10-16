@@ -7,185 +7,348 @@
     "sourceQueryCulture": "en-US",
     "tables": [
       {
-        "name": "Cobertura",
+        "name": "dim_year",
         "columns": [
           {
-            "name": "category_name",
-            "dataType": "string",
-            "sourceColumn": "category_name",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "eligible_records",
+            "name": "year_key",
             "dataType": "int64",
-            "sourceColumn": "eligible_records",
-            "summarizeBy": "none"
+            "sourceColumn": "year_key",
+            "summarizeBy": "none",
+            "isHidden": true
           },
-          {
-            "name": "matched_records",
-            "dataType": "int64",
-            "sourceColumn": "matched_records",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "coverage_pct",
-            "dataType": "double",
-            "sourceColumn": "coverage_pct",
-            "summarizeBy": "none"
-          }
-        ],
-        "measures": [
-          {
-            "name": "Cobertura",
-            "expression": "DIVIDE(SUM(Cobertura[matched_records]), SUM(Cobertura[eligible_records]))",
-            "formatString": "0.00%"
-          },
-          {
-            "name": "Elegibles",
-            "expression": "SUM(Cobertura[eligible_records])",
-            "formatString": "#,0"
-          },
-          {
-            "name": "Vinculados",
-            "expression": "SUM(Cobertura[matched_records])",
-            "formatString": "#,0"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Cobertura",
-            "mode": "directQuery",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
-                "    View = Source{[Schema=\"dw\", Item=\"kpi_coverage\"]}[Data]",
-                "in",
-                "    View"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Popularidad",
-        "columns": [
-          {
-            "name": "category_name",
-            "dataType": "string",
-            "sourceColumn": "category_name",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "distinct_tracks",
-            "dataType": "int64",
-            "sourceColumn": "distinct_tracks",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "mean_popularity",
-            "dataType": "double",
-            "sourceColumn": "mean_popularity",
-            "summarizeBy": "none"
-          }
-        ],
-        "measures": [
-          {
-            "name": "Popularidad media",
-            "expression": "SELECTEDVALUE(Popularidad[mean_popularity])",
-            "formatString": "0.00"
-          },
-          {
-            "name": "Canciones por categoria",
-            "expression": "SELECTEDVALUE(Popularidad[distinct_tracks])",
-            "formatString": "#,0"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Popularidad",
-            "mode": "directQuery",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
-                "    View = Source{[Schema=\"dw\", Item=\"kpi_popularity\"]}[Data]",
-                "in",
-                "    View"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Audio",
-        "columns": [
           {
             "name": "decade",
             "dataType": "int64",
             "sourceColumn": "decade",
             "summarizeBy": "none"
-          },
-          {
-            "name": "distinct_tracks",
-            "dataType": "int64",
-            "sourceColumn": "distinct_tracks",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "mean_energy",
-            "dataType": "double",
-            "sourceColumn": "mean_energy",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "mean_danceability",
-            "dataType": "double",
-            "sourceColumn": "mean_danceability",
-            "summarizeBy": "none"
           }
         ],
-        "measures": [
-          {
-            "name": "Energia media",
-            "expression": "SELECTEDVALUE(Audio[mean_energy])",
-            "formatString": "0.0000"
-          },
-          {
-            "name": "Bailabilidad media",
-            "expression": "SELECTEDVALUE(Audio[mean_danceability])",
-            "formatString": "0.0000"
-          },
-          {
-            "name": "Canciones por decada",
-            "expression": "SELECTEDVALUE(Audio[distinct_tracks])",
-            "formatString": "#,0"
-          }
-        ],
+        "measures": [],
         "partitions": [
           {
-            "name": "Audio",
+            "name": "dim_year",
             "mode": "directQuery",
             "source": {
               "type": "m",
               "expression": [
                 "let",
                 "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
-                "    View = Source{[Schema=\"dw\", Item=\"kpi_audio\"]}[Data]",
+                "    Table = Source{[Schema=\"dw\", Item=\"dim_year\"]}[Data]",
                 "in",
-                "    View"
+                "    Table"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_category",
+        "columns": [
+          {
+            "name": "category_key",
+            "dataType": "int64",
+            "sourceColumn": "category_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "category_name",
+            "dataType": "string",
+            "sourceColumn": "category_name",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_category",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    Table = Source{[Schema=\"dw\", Item=\"dim_category\"]}[Data]",
+                "in",
+                "    Table"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_artist",
+        "columns": [
+          {
+            "name": "artist_key",
+            "dataType": "int64",
+            "sourceColumn": "artist_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "artist_name",
+            "dataType": "string",
+            "sourceColumn": "artist_name",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_artist",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    Table = Source{[Schema=\"dw\", Item=\"dim_artist\"]}[Data]",
+                "in",
+                "    Table"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_track",
+        "columns": [
+          {
+            "name": "track_key",
+            "dataType": "int64",
+            "sourceColumn": "track_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "track_id",
+            "dataType": "string",
+            "sourceColumn": "track_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "track_name",
+            "dataType": "string",
+            "sourceColumn": "track_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "spotify_artists",
+            "dataType": "string",
+            "sourceColumn": "spotify_artists",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "dim_track",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    Table = Source{[Schema=\"dw\", Item=\"dim_track\"]}[Data]",
+                "in",
+                "    Table"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_grammy_record",
+        "columns": [
+          {
+            "name": "source_row_id",
+            "dataType": "int64",
+            "sourceColumn": "source_row_id",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "year_key",
+            "dataType": "int64",
+            "sourceColumn": "year_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "category_key",
+            "dataType": "int64",
+            "sourceColumn": "category_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "artist_key",
+            "dataType": "int64",
+            "sourceColumn": "artist_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "track_key",
+            "dataType": "int64",
+            "sourceColumn": "track_key",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "nominee",
+            "dataType": "string",
+            "sourceColumn": "nominee",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "eligible",
+            "dataType": "boolean",
+            "sourceColumn": "eligible",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "match_status",
+            "dataType": "string",
+            "sourceColumn": "match_status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "candidate_count",
+            "dataType": "int64",
+            "sourceColumn": "candidate_count",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "popularity",
+            "dataType": "double",
+            "sourceColumn": "popularity",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "energy",
+            "dataType": "double",
+            "sourceColumn": "energy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "danceability",
+            "dataType": "double",
+            "sourceColumn": "danceability",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Elegibles",
+            "expression": "CALCULATE(COUNTROWS('fact_grammy_record'), 'fact_grammy_record'[eligible] = TRUE())",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Vinculados",
+            "expression": "CALCULATE(COUNTROWS('fact_grammy_record'), 'fact_grammy_record'[eligible] = TRUE(), 'fact_grammy_record'[match_status] = \"matched\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Cobertura",
+            "expression": "DIVIDE([Vinculados], [Elegibles])",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Popularidad media",
+            "expression": "AVERAGEX(CALCULATETABLE(VALUES('fact_grammy_record'[track_key]), 'fact_grammy_record'[match_status] = \"matched\"), CALCULATE(MAX('fact_grammy_record'[popularity])))",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Canciones por categoria",
+            "expression": "CALCULATE(DISTINCTCOUNT('fact_grammy_record'[track_key]), 'fact_grammy_record'[match_status] = \"matched\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Energia media",
+            "expression": "AVERAGEX(CALCULATETABLE(VALUES('fact_grammy_record'[track_key]), 'fact_grammy_record'[match_status] = \"matched\"), CALCULATE(MAX('fact_grammy_record'[energy])))",
+            "formatString": "0.0000"
+          },
+          {
+            "name": "Bailabilidad media",
+            "expression": "AVERAGEX(CALCULATETABLE(VALUES('fact_grammy_record'[track_key]), 'fact_grammy_record'[match_status] = \"matched\"), CALCULATE(MAX('fact_grammy_record'[danceability])))",
+            "formatString": "0.0000"
+          },
+          {
+            "name": "Canciones por decada",
+            "expression": "CALCULATE(DISTINCTCOUNT('fact_grammy_record'[track_key]), 'fact_grammy_record'[match_status] = \"matched\")",
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_grammy_record",
+            "mode": "directQuery",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = PostgreSQL.Database(\"localhost:5433\", \"music_dw\", [CreateNavigationProperties=false]),",
+                "    Table = Source{[Schema=\"dw\", Item=\"fact_grammy_record\"]}[Data]",
+                "in",
+                "    Table"
               ]
             }
           }
         ]
       }
     ],
+    "relationships": [
+      {
+        "name": "fact_year_key_dim_year",
+        "fromTable": "fact_grammy_record",
+        "fromColumn": "year_key",
+        "toTable": "dim_year",
+        "toColumn": "year_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "fact_category_key_dim_category",
+        "fromTable": "fact_grammy_record",
+        "fromColumn": "category_key",
+        "toTable": "dim_category",
+        "toColumn": "category_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "fact_artist_key_dim_artist",
+        "fromTable": "fact_grammy_record",
+        "fromColumn": "artist_key",
+        "toTable": "dim_artist",
+        "toColumn": "artist_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "fact_track_key_dim_track",
+        "fromTable": "fact_grammy_record",
+        "fromColumn": "track_key",
+        "toTable": "dim_track",
+        "toColumn": "track_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"Cobertura\", \"Popularidad\", \"Audio\"]"
+        "value": "[\"dim_year\", \"dim_category\", \"dim_artist\", \"dim_track\", \"fact_grammy_record\"]"
       }
     ]
   }
