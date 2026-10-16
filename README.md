@@ -26,20 +26,15 @@ Las categorías elegibles son una selección conservadora de premios a interpret
 ## Capturas de Power BI
 
 ### AR1 · Cobertura del cruce
-
-![Power BI · cobertura Grammy–Spotify: elegibles, vinculados y porcentaje de cobertura](docs/evidence/powerbi_AR1.jpg)
+<img width="1090" height="636" alt="image" src="https://github.com/user-attachments/assets/9e5db0a8-54d8-4161-9648-c2990de801d8" />
 
 ### AR2 · Popularidad por categoría
 
-<!-- Agregar aquí la captura de Power BI y guardarla como docs/evidence/powerbi_AR2.jpg. -->
-
-*Espacio reservado para la captura de popularidad por categoría.*
+<img width="1087" height="636" alt="image" src="https://github.com/user-attachments/assets/2d29bf23-ec7a-4c0b-8e25-c2b67b4b5686" />
 
 ### AR3 · Perfil de audio por década
 
-<!-- Agregar aquí la captura de Power BI y guardarla como docs/evidence/powerbi_AR3.jpg. -->
-
-*Espacio reservado para la captura de energía y bailabilidad por década.*
+<img width="1086" height="637" alt="image" src="https://github.com/user-attachments/assets/6c27652f-d71e-4c6d-9738-3ba1daeb158f" />
 
 ## Cómo funciona
 
