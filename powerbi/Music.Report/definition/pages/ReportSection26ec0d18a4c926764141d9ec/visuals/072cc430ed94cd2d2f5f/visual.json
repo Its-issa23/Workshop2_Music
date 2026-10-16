@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "072cc430ed94cd2d2f5f",
+  "position": {
+    "x": 35,
+    "y": 650,
+    "z": 0,
+    "height": 65,
+    "width": 1210,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Alcance de la muestra",
+                    "textStyle": {
+                      "fontSize": "25pt",
+                      "fontWeight": "bold",
+                      "color": "#143B48"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Solo siete categorías de interpretaciones de canciones. El flag winner no distingue ganadores de nominados.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#42606B"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

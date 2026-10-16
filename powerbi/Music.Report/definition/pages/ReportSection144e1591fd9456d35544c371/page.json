@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection144e1591fd9456d35544c371",
+  "displayName": "03 · Perfil de audio",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

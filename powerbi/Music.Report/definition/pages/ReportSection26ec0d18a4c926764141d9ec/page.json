@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSection26ec0d18a4c926764141d9ec",
+  "displayName": "01 · Cobertura del cruce",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "7208615a28c9c12bd569",
+  "position": {
+    "x": 35,
+    "y": 20,
+    "z": 0,
+    "height": 110,
+    "width": 1210,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "GRAMMY × SPOTIFY | Cobertura verificable",
+                    "textStyle": {
+                      "fontSize": "25pt",
+                      "fontWeight": "bold",
+                      "color": "#143B48"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "AR1 · Coincidencias únicas de título + artista. Los registros ambiguos no se fuerzan. Fuente: PostgreSQL / music_dw.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#42606B"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,5 +1,7 @@
 """Create a source-controlled Power BI project with PostgreSQL DirectQuery."""
 import json
+import hashlib
+import shutil
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -28,33 +30,41 @@ table('Audio','kpi_audio',[('decade','int64'),('distinct_tracks','int64'),('mean
     ('Energia media','SELECTEDVALUE(Audio[mean_energy])','0.0000'),
     ('Bailabilidad media','SELECTEDVALUE(Audio[mean_danceability])','0.0000'),
     ('Canciones por decada','SELECTEDVALUE(Audio[distinct_tracks])','#,0')])
-save('Music.SemanticModel/model.bim',{'name':'Music','compatibilityLevel':1567,'model':{'culture':'es-ES','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-US','tables':tables,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps([t['name'] for t in tables])}]}})
+save('Music.SemanticModel/model.bim',{'name':'Music','compatibilityLevel':1606,'model':{'culture':'es-ES','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-US','tables':tables,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps([t['name'] for t in tables])}]}})
 report='Music.Report/definition/'
-save(report+'version.json',{'$schema':BASE+'item/report/definition/versionMetadata/1.0.0/schema.json','version':'4.0.0'})
-save(report+'report.json',{'$schema':BASE+'item/report/definition/report/2.0.0/schema.json','themeCollection':{}})
-save(report+'pages/pages.json',{'$schema':BASE+'item/report/definition/pagesMetadata/1.0.0/schema.json','pageOrder':['AR1','AR2','AR3'],'activePageName':'AR1'})
+PAGES={key:'ReportSection'+hashlib.sha1(key.encode('utf-8')).hexdigest()[:24] for key in ('AR1','AR2','AR3')}
+pages_root=(OUT/'Music.Report/definition/pages').resolve()
+for stale_page in ('AR1','AR2','AR3'):
+    stale_path=(pages_root/stale_page).resolve()
+    if stale_path.parent==pages_root and stale_path.exists():
+        shutil.rmtree(stale_path)
+save(report+'version.json',{'$schema':BASE+'item/report/definition/versionMetadata/1.0.0/schema.json','version':'2.0.0'})
+save(report+'report.json',{'$schema':BASE+'item/report/definition/report/3.3.0/schema.json','themeCollection':{}})
+save(report+'pages/pages.json',{'$schema':BASE+'item/report/definition/pagesMetadata/1.1.0/schema.json','pageOrder':[PAGES[p] for p in ('AR1','AR2','AR3')],'activePageName':PAGES['AR1']})
 
 def literal(v):
     return {'expr':{'Literal':{'Value':("'"+v.replace("'","''")+"'") if isinstance(v,str) else str(v).lower()}}}
 def field(table,name,measure=False):
     return {'field':{('Measure' if measure else 'Column'):{'Expression':{'SourceRef':{'Entity':table}},'Property':name}},'queryRef':table+'.'+name,'nativeQueryRef':name}
 def visual(page,name,kind,title,roles,x,y,w,h):
-    content={'$schema':BASE+'item/report/definition/visualContainer/2.0.0/schema.json','name':name,'position':{'x':x,'y':y,'z':0,'height':h,'width':w,'tabOrder':0},
+    visual_id=hashlib.sha1(f'{page}:{name}'.encode('utf-8')).hexdigest()[:20]
+    content={'$schema':BASE+'item/report/definition/visualContainer/2.12.0/schema.json','name':visual_id,'position':{'x':x,'y':y,'z':0,'height':h,'width':w,'tabOrder':0},
              'visual':{'visualType':kind,'query':{'queryState':{k:{'projections':v} for k,v in roles.items()}},
                        'visualContainerObjects':{'title':[{'properties':{'show':literal(True),'text':literal(title),'fontSize':literal(15),'titleWrap':literal(True)}}]},'drillFilterOtherVisuals':True}}
-    save(report+f'pages/{page}/visuals/{name}/visual.json',content)
+    save(report+f'pages/{PAGES[page]}/visuals/{visual_id}/visual.json',content)
 def text(page,name,title,body,y=20,h=110):
-    content={'$schema':BASE+'item/report/definition/visualContainer/2.0.0/schema.json','name':name,'position':{'x':35,'y':y,'z':0,'height':h,'width':1210,'tabOrder':0},
+    visual_id=hashlib.sha1(f'{page}:{name}'.encode('utf-8')).hexdigest()[:20]
+    content={'$schema':BASE+'item/report/definition/visualContainer/2.12.0/schema.json','name':visual_id,'position':{'x':35,'y':y,'z':0,'height':h,'width':1210,'tabOrder':0},
              'visual':{'visualType':'textbox','objects':{'general':[{'properties':{'paragraphs':[
                  {'textRuns':[{'value':title,'textStyle':{'fontSize':'25pt','fontWeight':'bold','color':'#143B48'}}]},
                  {'textRuns':[{'value':body,'textStyle':{'fontSize':'12pt','color':'#42606B'}}]}]}}]}}}
-    save(report+f'pages/{page}/visuals/{name}/visual.json',content)
+    save(report+f'pages/{PAGES[page]}/visuals/{visual_id}/visual.json',content)
 
 for page,label in [('AR1','01 · Cobertura del cruce'),('AR2','02 · Popularidad por categoria'),('AR3','03 · Perfil de audio')]:
-    save(report+f'pages/{page}/page.json',{'$schema':BASE+'item/report/definition/page/2.0.0/schema.json','name':page,'displayName':label,'displayOption':'FitToPage','height':720,'width':1280})
+    save(report+f'pages/{PAGES[page]}/page.json',{'$schema':BASE+'item/report/definition/page/2.1.0/schema.json','name':PAGES[page],'displayName':label,'displayOption':'FitToPage','height':720,'width':1280})
 text('AR1','header1','GRAMMY × SPOTIFY | Cobertura verificable','AR1 · Coincidencias únicas de título + artista. Los registros ambiguos no se fuerzan. Fuente: PostgreSQL / music_dw.')
 for i,m in enumerate(['Elegibles','Vinculados','Cobertura']):
-    visual('AR1','card'+str(i),'card',m,{'Values':[field('Cobertura',m,True)]},35+i*410,135,390,120)
+    visual('AR1','card'+str(i),'cardVisual',m,{'Data':[field('Cobertura',m,True)]},35+i*410,135,390,120)
 visual('AR1','coverage','clusteredBarChart','Porcentaje vinculado por categoría',{'Category':[field('Cobertura','category_name')],'Y':[field('Cobertura','Cobertura',True)]},35,280,1210,350)
 text('AR1','note1','Alcance de la muestra','Solo siete categorías de interpretaciones de canciones. El flag winner no distingue ganadores de nominados.',650,65)
 text('AR2','header2','Popularidad de las canciones vinculadas','AR2 · Media por canción Spotify distinta dentro de cada categoría. La puntuación corresponde a la instantánea Spotify, no al año del premio.')
